@@ -1,0 +1,31 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/ff4j
+    username: postgres
+    password: postgres
+  flyway:
+    url: ${spring.datasource.url}
+    user: ${spring.datasource.username}
+    password: ${spring.datasource.password}
+    locations: classpath:db/migration
+    baseline-on-migrate: true
+    validate-on-migrate: true
+    create-schemas: true
+    default-schema: flyway
+ff4j:
+  api:
+    context-path: /api/v1/ff4j     # default '/api/ff4j'
+    spring-doc:
+      enabled: true
+  audit:
+    enabled: true
+  web-console:
+    context-path: /ff4j-web-console        # default '/ff4j-web-console'
+    enabled: true
+  cache:
+    redis:
+      host: localhost
+      port: 6379
+logging:
+  level:
+    root: info
