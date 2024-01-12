@@ -1,8 +1,18 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/ff4j
-    username: postgres
-    password: postgres
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      allow-pool-suspension: true
+      connection-timeout: 30000
+      validation-timeout: 5000
+      connection-test-query: select 1
+      leak-detection-threshold: 90000
+      maximum-pool-size: 10
+      minimum-idle: 1
+      pool-name: ${spring.application.name}
   flyway:
     url: ${spring.datasource.url}
     user: ${spring.datasource.username}
@@ -12,6 +22,8 @@ spring:
     validate-on-migrate: true
     create-schemas: true
     default-schema: flyway
+  application:
+    name: ff4j-demo
 ff4j:
   api:
     context-path: /api/v1/ff4j     # default '/api/ff4j'
@@ -29,3 +41,5 @@ ff4j:
 logging:
   level:
     root: info
+server:
+  port: ${random.int[9000,9999]}

@@ -1,6 +1,5 @@
 package com.barun.ff4j.configuration;
 
-import com.barun.ff4j.configuration.FF4jConfig;
 import org.ff4j.FF4j;
 import org.ff4j.web.FF4jDispatcherServlet;
 import org.springframework.boot.autoconfigure.AutoConfigureAfter;
@@ -21,14 +20,14 @@ import org.springframework.context.annotation.Configuration;
 public class FF4jWebConsoleConfiguration extends SpringBootServletInitializer {
     @Bean
     @ConditionalOnMissingBean
-    public FF4jDispatcherServlet defineFF4jServlet(FF4j ff4j) {
+    public FF4jDispatcherServlet defineFF4jServlet(final FF4j ff4j) {
         FF4jDispatcherServlet ff4jConsoleServlet = new FF4jDispatcherServlet();
         ff4jConsoleServlet.setFf4j(ff4j);
         return ff4jConsoleServlet;
     }
+
     @Bean
-    @SuppressWarnings({"rawtypes","unchecked"})
-    public ServletRegistrationBean registerFF4jServlet(FF4jDispatcherServlet ff4jDispatcherServlet) {
-        return new ServletRegistrationBean(ff4jDispatcherServlet, "/ff4j-web-console/*");
+    public ServletRegistrationBean<FF4jDispatcherServlet> registerFF4jServlet(FF4jDispatcherServlet ff4jDispatcherServlet) {
+        return new ServletRegistrationBean<>(ff4jDispatcherServlet, "/ff4j-web-console/*");
     }
 }

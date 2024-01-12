@@ -1,20 +1,32 @@
 package com.barun.ff4j.configuration;
 
-import com.zaxxer.hikari.HikariDataSource;
 import org.ff4j.FF4j;
 import org.ff4j.cache.FF4JCacheManager;
-import org.ff4j.cache.FF4jCacheProxy;
+import org.ff4j.cache.FF4jCacheManagerRedis;
+import org.ff4j.redis.RedisConnection;
 import org.ff4j.springjdbc.store.EventRepositorySpringJdbc;
 import org.ff4j.springjdbc.store.FeatureStoreSpringJdbc;
 import org.ff4j.springjdbc.store.PropertyStoreSpringJdbc;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+
+import javax.sql.DataSource;
 
 @Configuration
 public class FF4jConfig {
 
+
     @Bean
-    public FF4j getFF4j(HikariDataSource dataSource, FF4JCacheManager cacheManager) {
+    public FF4jCacheManagerRedis cacheManagerRedis(@Value("${ff4j.cache.redis.host}") String host, @Value("${ff4j.cache.redis.port}") int port) {
+        RedisConnection redisConnection = new RedisConnection(host, port);
+        redisConnection.setRedisPoolMaxTotal(10);
+        redisConnection.setRedisPoolTimeout(6000);
+        return new FF4jCacheManagerRedis(redisConnection);
+    }
+
+    @Bean
+    public FF4j getFF4j(final DataSource dataSource, final FF4JCacheManager cacheManager) {
         FF4j ff4j = new FF4j();
 
 
