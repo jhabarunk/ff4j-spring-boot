@@ -18,7 +18,6 @@ repositories {
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
-//    implementation(files("/Users/barun.jha/.m2/repository/org/ff4j/ff4j-core/2.0.1-SNAPSHOT/ff4j-core-2.0.1-SNAPSHOT.jar"))
     implementation 'org.ff4j:ff4j-spring-boot-starter-webmvc:2.0.0'
     implementation 'org.ff4j:ff4j-store-springjdbc:2.0.0'
     implementation 'org.ff4j:ff4j-store-redis:2.0.0'
