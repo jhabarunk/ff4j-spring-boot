@@ -15,8 +15,6 @@ import javax.sql.DataSource;
 
 @Configuration
 public class FF4jConfig {
-
-
     @Bean
     public FF4jCacheManagerRedis cacheManagerRedis(@Value("${ff4j.cache.redis.host}") String host, @Value("${ff4j.cache.redis.port}") int port) {
         RedisConnection redisConnection = new RedisConnection(host, port);
@@ -43,10 +41,6 @@ public class FF4jConfig {
 
         // To define RBAC access, the application must have a logged user
         //ff4j.setAuthManager(...);
-
-        // To define a cacher layer to relax the DB, multiple implementations
-        //ff4j.cache([a cache Manager]);
-
         return ff4j;
     }
 }
